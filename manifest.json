@@ -1,0 +1,54 @@
+{  
+  "name": "爱卡ID屏蔽插件",  
+  "version": "1.0.3",  
+  "manifest_version":2,
+  "description": "你被一些无聊的人搞得搓火吗？不想被一些讨厌的家伙影响心情？来试这插件吧!",  
+  "update_url": "http://upext.chrome.360.cn/intf.php?method=ExtUpdate.query",
+  "icons": 
+  { 
+    "16": "16.png",    
+    "24": "24.png",         
+    "32": "32.png",
+    "48": "48.png",
+    "64": "64.png",            
+    "128": "128.png" 
+  },  
+  "browser_action": {  
+   // "default_icon": "icon.png" ,
+    "default_title": "爱卡ID屏蔽插件",
+    "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["script/background.js"]
+    },
+
+   "permissions": [
+        "tabs",
+        "background",
+        "notifications",
+        "storage",
+        "webRequestBlocking",
+        "webRequest",
+        "http://*/*"
+    ],
+    //"web_accessible_resources": ["script/jquery.min.js", "script/xcarfilter.js","script/block_forumdisplay.js"],
+    "content_scripts": [
+    {
+      "matches": ["http://www.xcar.com.cn/bbs/viewthread.php?tid=*","http://www.xcar.com.cn/bbs/forumdisplay.php?*"],
+      "css": ["inject.css"],
+      "js": ["script/jquery.min.js", "script/xcarfilter.js","script/document_start.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["http://www.xcar.com.cn/bbs/viewthread.php?tid=*"],
+      "js": ["script/block_viewthread.js"],
+      "run_at": "document_end"
+
+    },
+    {
+      "matches": ["http://www.xcar.com.cn/bbs/forumdisplay.php?*"],
+      "js": ["script/block_forumdisplay.js"],
+      "run_at": "document_end"
+    }
+  ]
+} 
